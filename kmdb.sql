@@ -110,19 +110,86 @@
 -- TODO!
 
 -- Prints a header for the movies output
-.print "Movies"
-.print "======"
-.print ""
+
 
 -- The SQL statement for the movies output
 -- TODO!
 
 -- Prints a header for the cast output
+
+
+-- The SQL statement for the cast output
+-- TODO!
+
+DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS studios;
+DROP TABLE IF EXISTS movie_casts;
+DROP TABLE IF EXISTS actors;
+
+CREATE TABLE movies (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    movie_title TEXT,
+    year_released INTEGER,
+    MPAA_rating TEXT,
+    studio_id INTEGER
+);
+
+CREATE TABLE studios (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    studio_name TEXT
+);
+
+CREATE TABLE movie_casts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    movie_id INTEGER,
+    actor_name TEXT,
+    character_name TEXT
+);
+
+CREATE TABLE actors (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    actor_name
+);
+
+INSERT INTO movies VALUES ("1", "Batman Begins", "2005", "PG-13", "1");
+INSERT INTO movies VALUES ("2", "The Dark Knight", "2008", "PG-13", "1");
+INSERT INTO movies VALUES ("3", "The Dark Knight Rises", "2012", "PG-13", "1");
+
+INSERT INTO studios VALUES ("1", "Warner Bros");
+
+INSERT INTO movie_casts VALUES ("1", "1", "Christian Bale", "Bruce Wayne");
+INSERT INTO movie_casts VALUES ("2", "1", "Micheal Caine", "Alfred");
+INSERT INTO movie_casts VALUES ("3", "1", "Liam Neeson", "Ra's Al Ghul");
+INSERT INTO movie_casts VALUES ("4", "1", "Katie Holmes", "Rachel Dawes");
+INSERT INTO movie_casts VALUES ("5", "1", "Gary Oldman", "Commisioner Gordon");
+INSERT INTO movie_casts VALUES ("6", "2", "Christian Bale", "Bruce Wayne");
+INSERT INTO movie_casts VALUES ("7", "2", "Heath Ledger", "Joker");
+INSERT INTO movie_casts VALUES ("8", "2", "Aaron Eckhart", "Harvey Dent");
+INSERT INTO movie_casts VALUES ("9", "2", "Micheal Caine", "Alfred");
+INSERT INTO movie_casts VALUES ("10", "2", "Maggie Gyllenhaal", "Rachel Dawes");
+INSERT INTO movie_casts VALUES ("11", "3", "Christian Bale", "Bruce Wayne");
+INSERT INTO movie_casts VALUES ("12", "3", "Gary Oldman", "Commissioner Gordon");
+INSERT INTO movie_casts VALUES ("13", "3", "Tom Hardy", "Bane");
+INSERT INTO movie_casts VALUES ("14", "3", "Joseph Gordon-Levitt", "John Blake");
+INSERT INTO movie_casts VALUES ("15", "3", "Anne Hathaway", "Selina Kyle");
+
+.print "Movies"
+.print "======"
+.print ""
+
+.mode column
+.headers off
+
+SELECT movies.movie_title, movies.year_released, movies.MPAA_rating, studios.studio_name
+FROM movies INNER JOIN studios ON movies.studio_id = studios.id;
+
 .print ""
 .print "Top Cast"
 .print "========"
 .print ""
 
+.mode column
+.headers off
 
--- The SQL statement for the cast output
--- TODO!
+SELECT movies.movie_title, movie_casts.actor_name, movie_casts.character_name
+FROM movies INNER JOIN movie_casts ON movies.id = movie_casts.movie_id;
